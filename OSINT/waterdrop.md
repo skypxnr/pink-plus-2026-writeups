@@ -43,4 +43,10 @@ The banner turned green, confirming the solve!
 
 * **Location:** Uferpromenade Pebble Beach, Friedrichshafen (*Bodensee*), Germany
 
+### Flag
+
+```text
+PINK{B0d3ns33_0r_L4k3_C0nst4nc3?}
+```
+
 ---
