@@ -1,48 +1,66 @@
-This challenge is based on the famous German song "Moskau" by Dschinghis Khan (known for the line "Kosaken hey, hey, hey, hebt die Gläser...").
 
-The emojis translate the lyrics line-by-line, but there are intruder emojis that do not belong to the lyrics. Extracting the first letter of each intruder emoji (in English) reveals the flag:
+# PINK{} Challenge Writeup: Moskau
 
-Step-by-Step Breakdown
+This challenge is based on the German song "Moskau" by Dschinghis Khan, known for the line "Kosaken hey, hey, hey, hebt die Gläser...".
 
-Prefix / Opening Brace:
+The emojis translate the song's lyrics line by line, but some intruder emojis do not belong to the lyrics. Taking the first letter (in English) of each intruder emoji reveals the flag.
 
-🍕 Pizza → P
-🇮🇹 Italy → I
-👃 Nose → N
-🔑 Key → K
-🫲 Left-facing cupped hand → {
+## Step-by-Step Breakdown
 
-Word 1:
+### Prefix / Opening Brace
 
-🍋 Lemon → L
-🐘 Elephant → E
-🦅 Eagle → E
-🌈 Rainbow → R
-🐯 Tiger → T
-➖ Minus/Dash → _
+| Emoji | Meaning | Letter |
+|-------|---------|--------|
+| 🍕 | Pizza | `P` |
+| 🇮🇹 | Italy | `I` |
+| 👃 | Nose | `N` |
+| 🔑 | Key | `K` |
+| 🫲 | Left-facing cupped hand | `{` |
 
-Word 2:
+### Word 1
 
-🐶 Dog → D
-ℹ️ Info → I
-✉️ Envelope / E-mail → E
-➖ Minus/Dash → _
+| Emoji | Meaning | Letter |
+|-------|---------|--------|
+| 🍋 | Lemon | `L` |
+| 🐘 | Elephant | `E` |
+| 🦅 | Eagle | `E` |
+| 🌈 | Rainbow | `R` |
+| 🐯 | Tiger | `T` |
+| ➖ | Minus/Dash | `_` |
 
-Word 3 & Closing Brace:
+### Word 2
 
-🍇 Grape → G
-🦁 Lion → L
-🍎 Apple → A
-🌲 Evergreen → E
-🐍 Snake → S
-👀 Eyes → E
-🐇 Rabbit → R
-🫱 Right-facing cupped hand → }
-Flag
+| Emoji | Meaning | Letter |
+|-------|---------|--------|
+| 🐶 | Dog | `D` |
+| ℹ️ | Info | `I` |
+| ✉️ | Envelope / E-mail | `E` |
+| ➖ | Minus/Dash | `_` |
 
-The hidden German phrase is "LEERT DIE GLAESER" ("Empty the glasses"):
+### Word 3 & Closing Brace
 
-text
+| Emoji | Meaning | Letter |
+|-------|---------|--------|
+| 🍇 | Grape | `G` |
+| 🦁 | Lion | `L` |
+| 🍎 | Apple | `A` |
+| 🌲 | Evergreen | `E` |
+| 🐍 | Snake | `S` |
+| 👀 | Eyes | `E` |
+| 🐇 | Rabbit | `R` |
+| 🫱 | Right-facing cupped hand | `}` |
+
+## Flag
+
+The hidden German phrase is "LEERT DIE GLÄSER" ("Empty the glasses"):
+
+```
+
 pink{LEERT_DIE_GLAESER}
+```
 
-(If the platform is case-sensitive and rejects uppercase, try: pink{leert_die_glaeser})
+If the platform is case-sensitive and rejects uppercase, try:
+
+```
+pink{leert_die_glaeser}
+```
