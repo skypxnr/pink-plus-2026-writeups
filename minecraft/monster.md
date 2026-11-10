@@ -65,7 +65,7 @@ This totals 96 hex characters, or 48 bytes (3 × 16 bytes).
 
 **Algorithm identification.** A 16-byte key paired with a 48-byte ciphertext and no Initialization Vector (IV) points to **AES-128-ECB**.
 
-### Step 4: Decryption and OCR correction
+### Step 4: Decryption
 
 Splitting the 96 hex characters into three 16-byte (32 hex character) blocks:
 
@@ -75,7 +75,6 @@ Splitting the 96 hex characters into three 16-byte (32 hex character) blocks:
 | 2 | `E44A7501412442BDCF3513E2926E72DD` | `_m0nst3r_1s_cr4z` |
 | 3 | `AEAE661BF45048683E4878146C8786A2` | `y!}` + 13 bytes of `0x0d` padding |
 
-**OCR correction:** A visual ambiguity in the default Minecraft pixel font makes `6` look like `B`. The right sign on line 2 should read `2BDCF...` instead of `26DCF...`, which gives the corrected block 2 hex shown above.
 
 **Block 3 padding.** The final block decrypts to `y!}` followed by 13 bytes of PKCS#7 padding (`0x0d`), which is consistent with the flag's ending.
 
