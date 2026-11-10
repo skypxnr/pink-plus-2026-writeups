@@ -2,7 +2,7 @@
 
 # Pink+ CTF 2026 Writeups
 
-Writeups and solutions from our team's participation in **Pink+ CTF 2026**, an online capture the flag competition with around 600 teams. We finished **87th** overall.
+Writeups and solutions from our team's participation in **Pink+ CTF 2026**, an online capture the flag competition with around 600 teams. We finished **85th** overall.
 
 ## Results
 
