@@ -1,92 +1,36 @@
+To solve the TNS challenge, we examine the provided TI-Nspire calculator files (lib_pink.tns and pink.tns).
 
-# TNS 2 Challenge Writeup
+Analysis & Solution
 
-**Category:** Calculator
-**Author:** admin5559
-**Description:** "I did some Painting... on my calculator"
+Format Identification: TI-Nspire .tns document files are ZIP archives using custom header signatures (*TIMLP... instead of PK\x03\x04 and TIPD instead of PK\x05\x06).
 
-The challenge provides a file named `tns2_pink.tns`.
+Extracting the Archive Contents: Inside the archives, we find Python scripts used by the TI-Nspire Python app:
 
-## 1. File Container and Method 13 Architecture
-
-### TI-Nspire `.tns` Container
-
-The header begins with the magic bytes `*TIMLP0500`, and the end-of-directory signature is `TIPD`. Underneath, the file is a modified PK-ZIP archive with two entries:
-
-- `Document.xml`
-- `Problem1.xml`
-
-Both entries use compression method `0x000D` (Method 13).
-
-### Method 13 Unpacking
-
-Method 13 is a four-stage layered construction:
-
-1. **40-byte header:** Encrypted with 3DES-ECB using the fixed TI master key:
-   `79 c4 e0 f4 5e ef 7a 5b 70 13 7a 57 c2 fd 3d 2c c2 70 7c c1 ad 2f 15 75`
-   Decrypting the header yields the magic `TIEN0100`, a block size of `0x400`, a counter seed, and 21 bytes of packed 3DES key material.
-2. **Payload stream:** Encrypted with a 3DES keystream in counter XOR mode, using `\x00\x00\x00\x00` + seed + block index as the counter.
-3. **Compression:** Raw DEFLATE stream, decompressed with `zlib.decompress(data, -15)`.
-4. **Token stream:** A tokenized XML stream beginning with `TIXC0100-1.0?>`.
-
-Decoding the `TIXC0100` token grammar reconstructs the original `Problem1.xml` (57,640 bytes).
-
-## 2. The Red Herring vs. The Real "Painting"
-
-`Problem1.xml` contains an off-screen text object:
-
-```xml
-<gg:text><gg:id>132</gg:id><gg:chrs>... PINK{th1s_15_4_f4k3_fl4g}</gg:chrs></gg:text>
-```
-
-This is a decoy planted to trap automated string dumpers.
-
-The prompt says "I did some Painting... on my calculator." Inside the `<wdgt xmlns:gg="urn:TI.GeoGrapher">` widget, the author drew geometry using 63 `<gg:point>` vertices, 45 `<gg:segment>` lines, and inline text labels.
-
-### Layout
-
-```
-Row 1:   [ P ]  [ I ]  [ N ]  [ K ]  [ { ]  [ f ]  [ L ]
-Row 2:   [ A ]  "g_"   [ t ]  [ n ]  "S_ca" [ l ]  [ c ]  [ } ]
-```
-
-### Drawn Glyphs
-
-| Glyph | Description |
-|-------|-------------|
-| `P`, `I`, `N`, `K`, `{` | Drawn directly |
-| `f` | Vertical stem with a crossbar extending across both sides |
-| `L` | Vertical stroke with a bottom horizontal bar |
-| `A` | Slanted legs with a middle crossbar |
-| `t` | Vertical stroke with a bottom hook and crossbar |
-| `n` | Stem with an arch |
-| `l` | Vertical stroke with a bottom serif |
-| `c` | Half-height square bracket shape |
-| `}` | Closing brace |
-
-### Text Labels
-
-- `g_`
-- `S_ca`
-
-## 3. Assembling the Flag
-
-Combining the segments and text labels in order:
-
-```
-PINK + { + fLA + g_ + tn + S_ca + lc + }
-```
-
-Result:
-
-```
-PINK{fLAg_tnS_calc}
-```
-
-If the platform treats the drawn `f` as uppercase, the flag is `PINK{FLAg_tnS_calc}`. If it is case-insensitive, the flag is `PINK{flag_tns_calc}`.
-
-## Flag
-
-```
-PINK{fLAg_tnS_calc}
-```
+lib_pink.tns contains lib_pink.py:
+python
+alphabet = "jXOsE_Q7YB32KVqRGFUx15IcltpCNg8{HMz49baWkiTud60vmhnLAoSZDyewr}PJf"
+def get(list):
+  if list == "alphabet":
+    return alphabet
+   - **`pink.tns`** contains **`pink.py`**:
+     ```python
+     import lib_pink as pinkctf
+     e = pinkctf.get("alphabet")
+     c = "62 22 28 12 31 0 43 3 25 5 35 5 3 20 48 26 24 10 5 26 60 46 29 60 35 48 5 20 5 59 60 46 25 10 5 46 50 5 48 57 5 50 10 59 5 23 35 24 23 43 24 35 25 46 60 61"
+     if c == "":
+       c = input("Ciphertext: ")
+     f = ""
+     for n in c.split():
+       f += e[int(n)]
+     print(f)
+     ```
+3. **Decoding the Ciphertext:**
+   Mapping each index in `c` to the character in `alphabet`:
+python
+alphabet = "jXOsE_Q7YB32KVqRGFUx15IcltpCNg8{HMz49baWkiTud60vmhnLAoSZDyewr}PJf"
+c = "62 22 28 12 31 0 43 3 25 5 35 5 3 20 48 26 24 10 5 26 60 46 29 60 35 48 5 20 5 59 60 46 25 10 5 46 50 5 48 57 5 50 10 59 5 23 35 24 23 43 24 35 25 46 60 61"
+flag = "".join(alphabet[int(i)] for i in c.split())
+print(flag)
+Flag
+text
+PINK{just_4_s1mpl3_pr0gr4m_1_wr0t3_0n_my_n3w_c4lcul4t0r}
