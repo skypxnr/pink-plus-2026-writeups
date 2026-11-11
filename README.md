@@ -1,4 +1,4 @@
-# p53ud0p4n1c | 86th Position | 1185 Points
+# p53ud0p4n1c | 85th Position | 1185 Points
 
 # Pink+ CTF 2026 Writeups
 
