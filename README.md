@@ -11,7 +11,7 @@ Writeups and solutions from our team's participation in **Pink+ CTF 2026**, an o
 | Event | Pink+ CTF 2026 (online) |
 | Format | Jeopardy-style, online |
 | Teams | ~600 |
-| Final rank | 87th |
+| Final rank | 85th |
 
 ## Team
 
